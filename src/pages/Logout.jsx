@@ -64,9 +64,6 @@ const Logout = () => {
           console.warn("Logout blocked: Another interaction is in progress");
           navigate("/login");
         }
-      } else {
-        //Google
-        navigate("/login");
       }
     };
 

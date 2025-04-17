@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser, updateAuthorization } from "../features/auth/authSlice";
+import { updateAuthorization } from "../features/auth/authSlice";
 import Tabs from "../components/Tabs";
 import TabContent from "../components/TabContent";
 
@@ -17,18 +17,15 @@ const Home = () => {
   console.log("authorization:", authorization, "activeTab:", activeTab);
 
   useEffect(() => {
-    if (token && !user && authProvider === "google") {
-      console.log("home-user",user)
-      dispatch(fetchUser());
-    }
     // Manually set roles and pages for testing.. superAdmin || editAdmin || newAdmin || user and total 4 pages
     const initialAuthorizationData = {
       roles: ["superAdmin"],
-      pages: [1,2,3],
+      pages: [1, 2, 3],
     };
-    dispatch(updateAuthorization(initialAuthorizationData));
+    if (token && user) {
+      dispatch(updateAuthorization(initialAuthorizationData));
+    }
   }, [token, dispatch, user, authProvider]);
-
 
   return (
     <div>

@@ -8,7 +8,6 @@ import { useMsal } from "@azure/msal-react";
 
 const Login = () => {
   const { instance } = useMsal();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { token, authProvider, user } = useSelector((state) => state.auth);
@@ -17,16 +16,8 @@ const Login = () => {
     if (token && user) {
       navigate("/home", { replace: true });
     }
-// Only redirect if token, user exists AND we're  already on the login page
-    if (token && !user && authProvider === "google") {
-      navigate("/home");
-    }
   }, [token, user, navigate, authProvider]);
 
-  const handleGoogleLogin = async () => {
-    //redirect to Oauth backend URL
-    window.location.href = "http://localhost:3000/auth/google/";
-  };
 
   const handleMicrosoftLogin = async () => {
     try{
@@ -52,9 +43,6 @@ const Login = () => {
 
   return (
     <div style={styles.container}>
-      <button onClick={handleGoogleLogin} style={styles.button}>
-        Login with Google
-      </button>
       <button onClick={handleMicrosoftLogin} style={styles.button}>
         Login with Microsoft
       </button>

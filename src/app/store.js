@@ -8,7 +8,7 @@ import { FLUSH, REGISTER, REHYDRATE, PERSIST, PURGE, PAUSE } from "redux-persist
 const persistConfig = {
   key: "auth",
   storage,
-  whitelist: ['token','authProvider'], // stores token,
+  whitelist: ['token','user','authProvider'], // stores token,
 }
 //Wrap only auth reducer
 const rootReducer = combineReducers({

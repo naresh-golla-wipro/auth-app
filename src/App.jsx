@@ -4,17 +4,14 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import "./App.css";
-import { useDispatch , useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import Landing from "./pages/Landing";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 
-// import { fetchUser } from "./features/auth/authSlice";
 
 function App() {
   // console.log("app");
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const {token,user} = useSelector((state)=>state.auth)
   console.log("token,user",token,user)
   return (

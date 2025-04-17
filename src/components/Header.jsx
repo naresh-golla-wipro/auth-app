@@ -12,53 +12,6 @@ const Header = () => {
   const { accounts, instance, inProgress } = useMsal();
   const { token, user } = useSelector((state) => state.auth);
 
-  const handleLogout = async () => {
-    localStorage.clear();
-    sessionStorage.clear();
-
-    dispatch(logout());
-    persistor.purge();
-
-    // Object.keys(localStorage).forEach((key) => {
-    //   if (
-    //     key.startsWith("msal.") ||
-    //     key.startsWith("msal.account.keys") ||
-    //     key.startsWith("msal.token.keys") ||
-    //     key.includes(instance.getClientId)
-    //   ) {
-    //     console.log("removed key:", key);
-    //     localStorage.removeItem(key);
-    //   }
-    // });
-    if (accounts.length > 0) {
-      // MSFT Logout with redirect and error handling
-      const logoutRequest = {
-        account: accounts[0],
-        postLogoutRedirectUri: "http://localhost:5173/", // EXACT MATCH REQUIRED
-        // mainWindowRedirectUri: "/",
-      };
-      // await instance.logoutRedirect({ postLogoutRedirectUri: "/" });
-      // await instance.logoutRedirect({ postLogoutRedirectUri: "/" });
-
-      // Check if a login/logout is already in progress
-      if (inProgress === InteractionStatus.None) {
-        instance.logoutRedirect(logoutRequest).catch((error) => {
-          // Optionally, display an error message to the user
-          console.log("logout error:", error);
-        });
-      } else {
-        console.warn("logout blocked: Another interaction is in progress");
-      }
-      // await instance.logoutRedirect(logoutRequest).catch((error) => {
-      //   console.error("Logout failed:", error);
-      // });
-    } else {
-      //google
-      navigate("/login");
-    }
-    navigate("/login");
-  };
-
   const handleLogin = () => {
     navigate("/login");
   };

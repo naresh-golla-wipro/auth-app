@@ -17,17 +17,6 @@ const initialState = {
   authError: null, // Separate error state for auth data
 };
 
-export const fetchUser = createAsyncThunk(
-  "auth/fetchUser",
-  async (_, thunkAPI) => {
-    try {
-      const res = await axiosInstance.get("/api/user");
-      return res.data.user;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response.data.message);
-    }
-  }
-);
 
 // export const fetchAuthorizationData = createAsyncThunk(
 //   "auth/fetchAuthorizationData",
@@ -70,17 +59,8 @@ const authSlice = createSlice({
 
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchUser.pending, (state, action) => {
-        (state.loading = true), (state.error = null);
-      })
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        (state.loading = false), (state.user = action.payload);
-      })
-      .addCase(fetchUser.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload);
-      });
+  // extraReducers: (builder) => {
+  //   builder
     // .addCase(fetchAuthorizationData.pending, (state,action)=>{
     //   state.authLoading = true,
     //   state.authError = null
@@ -90,7 +70,7 @@ const authSlice = createSlice({
     //   state.authorization.pages  = action.payload?.pages || [];
     //   state.authorization.roles = getPermissionsFromRoles(action.payload?.roles || [])
     // })
-  },
+  // },
 });
 
 //map roles to permissions
